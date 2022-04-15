@@ -1,7 +1,7 @@
 {
 	"name": "discord-vscode",
 	"displayName": "Discord Presence",
-	"version": "5.8.0",
+	"version": "5.8.5",
 	"description": "Update your discord status with a rich presence.",
 	"private": true,
 	"author": {
@@ -12,6 +12,11 @@
 		{
 			"name": "Frangu Vlad",
 			"email": "kingdgrizzle@gmail.com"
+		},
+		{
+			"name": "Nickyux",
+			"github": "https://github.com/nmsturcke",
+			"email": "nmsturcke@gmail.com"
 		}
 	],
 	"publisher": "icrawl",
@@ -153,6 +158,16 @@
 						"type": "number",
 						"default": 0,
 						"description": "Time (in seconds) to clear the presence when idling. 0 (the default) means no clearing"
+					},
+					"discord.buttonLabel": {
+						"type": "string",
+						"default": null,
+						"description": "The label of the button - Leave blank if you don't want a button"
+					},
+					"discord.buttonURL": {
+						"type": "string",
+						"default": null,
+						"description": "The URL of the button"
 					}
 				}
 			}

@@ -170,6 +170,8 @@ export async function activity(previous: ActivityPayload = {}) {
 	const defaultLargeImageText = config[CONFIG_KEYS.LargeImageIdling];
 	const removeDetails = config[CONFIG_KEYS.RemoveDetails];
 	const removeLowerDetails = config[CONFIG_KEYS.RemoveLowerDetails];
+	const buttonLabel = config[CONFIG_KEYS.ButtonLabel];
+	const buttonURL = config[CONFIG_KEYS.ButtonURL];
 	const removeRemoteRepository = config[CONFIG_KEYS.RemoveRemoteRepository];
 
 	const git = await getGit();
@@ -195,6 +197,17 @@ export async function activity(previous: ActivityPayload = {}) {
 		};
 	}
 
+	let buttonList = [];
+
+	if (buttonLabel != null && buttonURL != null) {
+		buttonList.push(
+			{
+				label: buttonLabel,
+				url: buttonURL
+			}
+		)
+	}
+
 	if (!removeRemoteRepository && git?.repositories.length) {
 		let repo = git.repositories.find((repo) => repo.ui.selected)?.state.remotes[0]?.fetchUrl;
 
@@ -205,10 +218,14 @@ export async function activity(previous: ActivityPayload = {}) {
 				repo = repo.replace(/(https:\/\/)([^@]*)@(.*?$)/, '$1$3').replace('.git', '');
 			}
 
-			state = {
-				...state,
-				buttons: [{ label: 'View Repository', url: repo }],
-			};
+			buttonList.push({ label: 'View Repository', url: repo})
+		}
+	}
+
+	if (buttonList != []) {
+		state = {
+			...state,
+			buttons: buttonList
 		}
 	}
 
